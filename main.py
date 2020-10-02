@@ -1,6 +1,6 @@
 #1. 먼저 url로 접근하기
 #2. 검색 설정으로 가서 페이지당 검색결과 수를 50으로 늘린다.
-#3. 이렇게해서 나온 url을 이용한다. ex) https://kr.indeed.com/%EC%B7%A8%EC%97%85?as_and=python&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=&jt=all&st=&salary=&radius=25&l=&fromage=any&limit=50&sort=&psf=advsrch&from=advancedsearch
+#3. 이렇게해서 나온 url을 이용한다. ex) https://kr.indeed.com/jobs?q=python&limit=50
 #4. import urllib
 
 #5 requests
@@ -13,7 +13,7 @@ requests : 파이썬에서 요청을 만드는 기능을 모아 놓은 것
 #6. requests 설치
 #import requests
 
-#indeed_result=requests.get("https://kr.indeed.com/jobs?q=python&limit=50&radius=25")
+#indeed_result=requests.get("https://kr.indeed.com/jobs?q=python&limit=50")
 
 #print(indeed_result) #[200]이라고 뜨면 정상
 #print(indeed_result.text) # text 추출. json(), encoding, headers도 가져올 수 있다.
@@ -112,9 +112,9 @@ int() 혹은 map(int,)
 """
 10. 최대 페이지 수를 불러오는 모듈 임포트
 """
-from indeed import extract_indeed_pages, extract_indeed_jobs
+# from indeed import extract_indeed_pages, extract_indeed_jobs
 
-max_indeed_pages = extract_indeed_pages()
+# max_indeed_pages = extract_indeed_pages()
 
 #print(max_indeed_pages)
 
@@ -124,7 +124,7 @@ indeed_pages을 입력으로 받아서 페이지 수만큼 요청하기
 """
 #from indeed import extract_indeed_jobs
 
-last_indeed_page = extract_indeed_pages()
+# last_indeed_page = extract_indeed_pages()
 
 #extract_indeed_jobs(last_indeed_page)
 
@@ -133,21 +133,27 @@ last_indeed_page = extract_indeed_pages()
 어떻게 데이터를 html에서 추출해야할까? -> soup을 사용하면 돼
 1) 타이틀 가져오기
 2) 회사이름 가져오기
+3) 회사주소 가져오기
+4) 회사 링크 가져오기
 """
 
+"""
+13. indeed.py파일에서 아래의 코드를 대신할 함수 만들기
+last_indeed_page = extract_indeed_pages()
 indeed_jobs = extract_indeed_jobs(last_indeed_page)
-print(indeed_jobs)
+"""
+# from indeed import get_jobs as get_indeed_jobs
 
+# indeed_jobs = get_indeed_jobs()
 
+# print(indeed_jobs)
 
+"""
+14. 다른 채용사이트(사람인)에서 같은 작업하기
+"""
+from indeed import get_jobs as get_indeed_jobs
+from saramin import get_jobs as get_saramin_jobs
 
-
-
-
-
-
-
-
-
-
+# indeed_jobs = get_indeed_jobs()
+so_jobs = get_saramin_jobs()
 
