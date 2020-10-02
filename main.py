@@ -151,9 +151,9 @@ indeed_jobs = extract_indeed_jobs(last_indeed_page)
 """
 14. 다른 채용사이트(사람인)에서 같은 작업하기
 """
-from indeed import get_jobs as get_indeed_jobs
+# from indeed import get_jobs as get_indeed_jobs
 from saramin import get_jobs as get_saramin_jobs
 
 # indeed_jobs = get_indeed_jobs()
-so_jobs = get_saramin_jobs()
 
+so_jobs = get_saramin_jobs()

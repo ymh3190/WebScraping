@@ -4,15 +4,14 @@ from bs4 import BeautifulSoup
 LIMIT = 50
 URL = f"https://kr.indeed.com/jobs?q=python&limit={LIMIT}"
 
-def get_last_page() :
+def get_last_page():
     result = requests.get(URL)
     soup = BeautifulSoup(result.text, "html.parser")
-    pagination = soup.find("div", {"class":"pagination"})
+    pagination = soup.find("div", {"class": "pagination"})
     links = pagination.find_all('a')
     pages = [link.string for link in links[:-1]]
     max_page = int(pages[-1])
     return max_page
-#print(f"&start={page*LIMIT}")
 
 def extract_job(html):
     title = html.find("h2", {"class": {"title"}}).find("a")["title"]
@@ -34,23 +33,14 @@ def extract_job(html):
     }
 
 def extract_jobs(last_page):
-    results = None
+    jobs = []
     for page in range(last_page):
         print(f"Scrapping page {page}")
         result = requests.get(f"{URL}&start={page*LIMIT}")
-    #print(results.status_code)
-    # jobs = []
         soup = BeautifulSoup(result.text, "html.parser")
         results = soup.find_all("div", {"class": "jobsearch-SerpJobCard"})
-    #print(results)
-    #for result in results:
-        #title = result.find("h2", {"class": "title"}) #요소 변경으로 인해 div->h2
-        #print(title)
-        #print(title.find("a").string)
-        #anchor = title.find("a")["title"]
-        #print(anchor)
-        # jobs = extract_job(result)
-    jobs = [extract_job(result) for result in results]
+        for result in results:
+            jobs.append(extract_job(result))
     return jobs
 
 def get_jobs():
