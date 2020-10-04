@@ -7,8 +7,8 @@ def get_last_page():
     result = requests.get(URL)
     soup = BeautifulSoup(result.text, "html.parser")
     pages = soup.find("div", {"class": "s-pagination"}).find_all('a')
-    last_pages = int(pages[-2].get_text(strip=True))
-    return last_pages
+    last_page = int(pages[-2].get_text(strip=True))
+    return last_page
 
 def extract_job(html):
     title = html.find("div", {"class": "grid--cell fl1"}).find('h2').find('a')["title"]
@@ -33,5 +33,5 @@ def extract_jobs(last_page):
 
 def get_jobs():
     last_page = get_last_page()
-    jobs = extract_jobs(2)
+    jobs = extract_jobs(last_page)
     return jobs

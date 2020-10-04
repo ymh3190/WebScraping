@@ -143,19 +143,20 @@ last_indeed_page = extract_indeed_pages()
 indeed_jobs = extract_indeed_jobs(last_indeed_page)
 """
 # from indeed import get_jobs as get_indeed_jobs
-
 # indeed_jobs = get_indeed_jobs()
-
 # print(indeed_jobs)
 
+
 """
-14. 다른 채용사이트(사람인)에서 같은 작업하기
+14. 다른 웹사이트에서 스크래핑
 """
 from indeed import get_jobs as get_indeed_jobs
 from so import get_jobs as get_so_jobs
+from saramin import get_jobs as get_saramin_jobs
 from save import save_to_file
 
 indeed_jobs = get_indeed_jobs()
 so_jobs = get_so_jobs()
-jobs = indeed_jobs
+saramin_jobs = get_saramin_jobs()
+jobs = indeed_jobs + so_jobs + saramin_jobs
 save_to_file(jobs)
